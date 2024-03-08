@@ -1,10 +1,13 @@
+import HomeBanner from "../components/HomeBanner";
 import Navigation from "../components/Navigation";
 
 const Home = () => {
   return (
     <>
       <Navigation />
-      <main></main>
+      <main>
+        <HomeBanner />
+      </main>
     </>
   );
 };

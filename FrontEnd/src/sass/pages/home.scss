@@ -1,5 +1,5 @@
 .hero {
-  background-image: url("../../assets/images/bank-tree.webp");
+  background-image: url("../../src/assets/images/bank-tree.webp");
   background-position: 0 -50px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -10,7 +10,7 @@
     background-position: 0% 33%;
   }
 
-  .hero-content {
+  &-content {
     position: relative;
     top: 2rem;
     width: 200px;
