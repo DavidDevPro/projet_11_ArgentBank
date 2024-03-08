@@ -1,7 +1,11 @@
-import React from "react";
+import Navigation from "../components/Navigation";
 
 const Login = () => {
-  return <div></div>;
+  return (
+    <>
+      <Navigation />
+    </>
+  );
 };
 
 export default Login;

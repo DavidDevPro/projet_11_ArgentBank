@@ -1,7 +1,11 @@
-import React from "react";
+import Navigation from "../components/Navigation";
 
 const User = () => {
-  return <div></div>;
+  return (
+    <>
+      <Navigation />
+    </>
+  );
 };
 
 export default User;

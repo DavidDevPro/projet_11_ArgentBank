@@ -1,21 +1,24 @@
-import React from "react";
+import { NavLink } from "react-router-dom";
+import logo from "../assets/images/argentBankLogo.webp";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
 const Navigation = () => {
   return (
     <nav className="main-nav">
-      <a className="main-nav-logo" href="/">
+      <NavLink to="/" className="main-nav-logo">
         <img
           className="main-nav-logo-image"
-          src="../../src/assets/images/argentBankLogo.webp"
+          src={logo}
           alt="Argent Bank logo"
         />
         <h1 className="sr-only">Argent Bank</h1>
-      </a>
+      </NavLink>
       <div>
-        <a className="main-nav-item" href="/login">
-          <i className="fa fa-user-circle"></i>
+        <NavLink to="/login" className="main-nav-item">
+          <FontAwesomeIcon icon={faUserCircle} />
           Sign In
-        </a>
+        </NavLink>
       </div>
     </nav>
   );
