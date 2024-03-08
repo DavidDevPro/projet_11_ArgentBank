@@ -26,3 +26,9 @@
     }
   }
 }
+
+// a placer correctement lors de la mise en place des composants react::after
+
+.main-nav a.router-link-exact-active {
+  color: #42b983;
+}
