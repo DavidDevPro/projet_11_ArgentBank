@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import logo from "../assets/images/argentBankLogo.webp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 
 const Navigation = () => {
   return (
@@ -16,7 +16,7 @@ const Navigation = () => {
       </NavLink>
       <div>
         <NavLink to="/login" className="main-nav-item">
-          <FontAwesomeIcon icon={faUserCircle} />
+          <FontAwesomeIcon icon={faCircleUser} />
           Sign In
         </NavLink>
       </div>
