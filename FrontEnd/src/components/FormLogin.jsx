@@ -6,9 +6,16 @@ const FormLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remenberMe, setRemenberMe] = useState(false);
+  const [erreur, setErreur] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    try {
+    } catch (error) {
+      console.error("Une erreur s'est produite lors de la connection");
+      setErreur("Erreur de connection !");
+    }
   };
 
   const handleRemenberMe = (e) => {
@@ -56,6 +63,7 @@ const FormLogin = () => {
           </div>
           <button className="sign-in-button">Sign In</button>
         </form>
+        {erreur && <p className="errorMessage">{erreur}</p>}
       </section>
     </main>
   );
