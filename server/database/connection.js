@@ -5,7 +5,7 @@ const databaseUrl =
 module.exports = async () => {
   try {
     await mongoose.connect(databaseUrl);
-    console.log("Database successfully connected");
+    console.log("=> mongoDB est connecté <=");
   } catch (error) {
     console.error(`Database Connectivity Error: ${error}`);
     throw new Error(error);

@@ -5,9 +5,10 @@
   margin: 0 auto;
   margin-top: 3rem;
   padding: 2rem;
+  border-radius: 15px;
 
   .sign-in-icon {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 
   .input-wrapper {
@@ -21,6 +22,10 @@
     & input {
       padding: 5px;
       font-size: 1.2rem;
+
+      &::placeholder {
+        font-size: 0.75em;
+      }
     }
   }
   .input-remember {
@@ -39,5 +44,6 @@
     border-color: #00bc77;
     background-color: #00bc77;
     color: #fff;
+    border-radius: 5px;
   }
 }
