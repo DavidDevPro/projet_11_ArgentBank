@@ -14,11 +14,11 @@ const FormLogin = () => {
         <h1>Sign In</h1>
         <form action="">
           <div className="input-wrapper">
-            <label htmlFor="username">Username</label>
-            <input type="text" id="username" />
+            <label htmlFor="usermail">User Mail:</label>
+            <input type="text" id="usermail" />
           </div>
           <div className="input-wrapper">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Password:</label>
             <input type="password" id="password" />
           </div>
           <div className="input-remember">
