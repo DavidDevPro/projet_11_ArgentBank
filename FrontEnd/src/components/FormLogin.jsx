@@ -3,8 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import ButtonFormEdit from "./ButtonFormEdit";
+import { loginUser, profileUser } from "../redux/slices/loginSlice";
+import { useDispatch } from "react-redux";
 
 const FormLogin = () => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remenberMe, setRemenberMe] = useState(false);
@@ -15,30 +18,22 @@ const FormLogin = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3001/api/v1/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!response.ok) {
-        throw new Error("La connexion a échoué, statut " + response.status);
-      } else {
-        const connected = await response.json();
-        const token = connected.body.token;
-        navigate("/user");
+      const token = await dispatch(
+        loginUser({
+          email: email, // valeur de credentials
+          password,
+        })
+      ).unwrap();
+      if (remenberMe) {
+        localStorage.setItem("token", token);
       }
+      await dispatch(profileUser()).unwrap();
+      navigate("/user");
     } catch (error) {
-      console.error(
-        "Une erreur s'est produite lors de la connexion :",
-        error.message
-      );
-      setErreur("Erreur de connexion !");
+      console.error("erreur de connection", error);
+      setErreur("erreur de connection");
     }
   };
-
   const handleRemenberMe = (e) => {
     setRemenberMe(e.target.checked);
   };

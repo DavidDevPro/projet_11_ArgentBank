@@ -19,8 +19,8 @@ const FormUserInfo = () => {
             <label htmlFor="lastname">Last Name:</label>
             <input type="text" id="lastname" placeholder="Last Name..." />
           </div>
-          <ButtonFormEdit text="Save" className="sign-in-button" />
-          <ButtonFormEdit text="Cancel" className />
+          <ButtonFormEdit text={"Save"} />
+          <ButtonFormEdit text={"Cancel"} />
         </form>
       </div>
     </section>
