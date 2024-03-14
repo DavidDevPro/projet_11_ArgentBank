@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 
@@ -7,14 +8,33 @@ const FormLogin = () => {
   const [password, setPassword] = useState("");
   const [remenberMe, setRemenberMe] = useState(false);
   const [erreur, setErreur] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
+      const response = await fetch("http://localhost:3001/api/v1/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error("La connexion a échoué, statut " + response.status);
+      }
+
+      const connected = await response.json();
+      const token = connected.body.token;
+      navigate("/user");
     } catch (error) {
-      console.error("Une erreur s'est produite lors de la connection");
-      setErreur("Erreur de connection !");
+      console.error(
+        "Une erreur s'est produite lors de la connexion :",
+        error.message
+      );
+      setErreur("Erreur de connexion !");
     }
   };
 
@@ -63,8 +83,8 @@ const FormLogin = () => {
           </div>
           <button className="sign-in-button">Sign In</button>
         </form>
-        {erreur && <p className="errorMessage">{erreur}</p>}
       </section>
+      {erreur && <p className="errorMessage">{erreur}</p>}
     </main>
   );
 };
