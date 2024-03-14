@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
+import ButtonFormEdit from "./ButtonFormEdit";
 
 const FormLogin = () => {
   const [email, setEmail] = useState("");
@@ -24,11 +25,11 @@ const FormLogin = () => {
 
       if (!response.ok) {
         throw new Error("La connexion a échoué, statut " + response.status);
+      } else {
+        const connected = await response.json();
+        const token = connected.body.token;
+        navigate("/user");
       }
-
-      const connected = await response.json();
-      const token = connected.body.token;
-      navigate("/user");
     } catch (error) {
       console.error(
         "Une erreur s'est produite lors de la connexion :",
@@ -81,7 +82,7 @@ const FormLogin = () => {
             />
             <label htmlFor="remember-me">Remember me</label>
           </div>
-          <button className="sign-in-button">Sign In</button>
+          <ButtonFormEdit text={"Sign-in"} />
         </form>
       </section>
       {erreur && <p className="errorMessage">{erreur}</p>}
