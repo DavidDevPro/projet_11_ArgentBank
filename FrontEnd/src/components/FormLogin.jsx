@@ -2,10 +2,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import ButtonFormEdit from "./ButtonFormEdit";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const FormLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -18,12 +20,17 @@ const FormLogin = () => {
         },
         body: JSON.stringify({ email, password }),
       });
-      if (response.status === 400) {
-      } else {
+
+      if (response) {
         const result = await response.json();
-        console.log(result.status);
+        const token = result.body.token;
+        navigate("/user");
+
+        console.log("Connexion réussie statut " + response.status);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error("Le fetch n'a pas réussi, erreur : " + error);
+    }
   };
 
   const handleEmail = (e) => {
