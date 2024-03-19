@@ -1,41 +1,36 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import ButtonFormEdit from "./ButtonFormEdit";
-import { loginUser, profileUser } from "../redux/slices/loginSlice";
-import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 const FormLogin = () => {
-  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [remenberMe, setRemenberMe] = useState(false);
-  const [erreur, setErreur] = useState("");
-  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const token = await dispatch(
-        loginUser({
-          email: email, // valeur de credentials
-          password,
-        })
-      ).unwrap();
-      if (remenberMe) {
-        localStorage.setItem("token", token);
+      const response = await fetch("http://localhost:3001/api/v1/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      if (response.status === 400) {
+      } else {
+        const result = await response.json();
+        console.log(result.status);
       }
-      await dispatch(profileUser()).unwrap();
-      navigate("/user");
-    } catch (error) {
-      console.error("erreur de connection", error);
-      setErreur("erreur de connection");
-    }
+    } catch (error) {}
   };
-  const handleRemenberMe = (e) => {
-    setRemenberMe(e.target.checked);
+
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+  };
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
   };
 
   return (
@@ -53,7 +48,7 @@ const FormLogin = () => {
               type="text"
               id="usermail"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleEmail}
               placeholder="exemple@gmail.com"
               required
             />
@@ -64,23 +59,17 @@ const FormLogin = () => {
               type="password"
               id="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handlePassword}
               required
             />
           </div>
           <div className="input-remember">
-            <input
-              type="checkbox"
-              id="remember-me"
-              checked={remenberMe}
-              onChange={handleRemenberMe}
-            />
+            <input type="checkbox" id="remember-me" />
             <label htmlFor="remember-me">Remember me</label>
           </div>
           <ButtonFormEdit text={"Sign-in"} />
         </form>
       </section>
-      {erreur && <p className="errorMessage">{erreur}</p>}
     </main>
   );
 };
