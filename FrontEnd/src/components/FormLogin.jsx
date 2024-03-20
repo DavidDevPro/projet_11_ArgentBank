@@ -4,6 +4,7 @@ import ButtonFormEdit from "./ButtonFormEdit";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { token } from "../redux/slices";
 
 const FormLogin = () => {
   const [email, setEmail] = useState("");
@@ -11,39 +12,33 @@ const FormLogin = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [erreur, setErreur] = useState("");
   const navigate = useNavigate();
-
-  const login = useSelector((state) => state.Login);
   const dispatch = useDispatch();
+  const storeToken = useSelector((state) => state.Login.token);
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await fetch("http://localhost:3001/api/v1/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+    const response = await fetch("http://localhost:3001/api/v1/user/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
 
-      if (response) {
-        const result = await response.json();
-        const token = dispatch({
-          type: "Login/token",
-          payload: result.body.token,
-        });
-        console.log(token);
-        rememberMe
-          ? localStorage.setItem("token", token.payload)
-          : localStorage.removeItem("token");
-        navigate("/user");
+    if (response.ok) {
+      const result = await response.json();
+      dispatch(token(result.body.token));
 
-        console.log("Connexion réussie statut " + response.status);
+      if (rememberMe) {
+        localStorage.setItem("token", storeToken);
       }
-    } catch (error) {
-      console.error("Le fetch n'a pas réussi, erreur ", error);
-      setErreur("Erreur de connection");
+      navigate("/user");
+
+      console.log("Connexion réussie statut " + response.status);
+    } else {
+      console.error("Échec de la requête, erreur status " + response.status);
+      setErreur("Erreur de connexion");
     }
   };
 

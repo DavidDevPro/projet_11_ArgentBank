@@ -4,7 +4,7 @@ import loginSlice from "./slices";
 // configuration du store Redux en utilisant configureStore
 export const store = configureStore({
   reducer: {
-    Login: loginSlice,
+    Login: loginSlice.reducer,
   },
 });
 
