@@ -3,6 +3,7 @@ import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import ButtonFormEdit from "./ButtonFormEdit";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 const FormLogin = () => {
   const [email, setEmail] = useState("");
@@ -10,6 +11,9 @@ const FormLogin = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [erreur, setErreur] = useState("");
   const navigate = useNavigate();
+
+  const login = useSelector((state) => state.Login);
+  const dispatch = useDispatch();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -25,10 +29,13 @@ const FormLogin = () => {
 
       if (response) {
         const result = await response.json();
-        const token = result.body.token;
+        const token = dispatch({
+          type: "Login/token",
+          payload: result.body.token,
+        });
         console.log(token);
         rememberMe
-          ? localStorage.setItem("token", token)
+          ? localStorage.setItem("token", token.payload)
           : localStorage.removeItem("token");
         navigate("/user");
 
@@ -36,7 +43,7 @@ const FormLogin = () => {
       }
     } catch (error) {
       console.error("Le fetch n'a pas réussi, erreur ", error);
-      setErreur("erreur de connection");
+      setErreur("Erreur de connection");
     }
   };
 
@@ -87,7 +94,6 @@ const FormLogin = () => {
               checked={rememberMe}
               onChange={HandleRememberMe}
             />
-            {console.log(rememberMe)}
 
             <label htmlFor="remember-me">Remember me</label>
           </div>
