@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 const FormLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+  const [erreur, setErreur] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -24,12 +26,17 @@ const FormLogin = () => {
       if (response) {
         const result = await response.json();
         const token = result.body.token;
+        console.log(token);
+        rememberMe
+          ? localStorage.setItem("token", token)
+          : localStorage.removeItem("token");
         navigate("/user");
 
         console.log("Connexion réussie statut " + response.status);
       }
     } catch (error) {
-      console.error("Le fetch n'a pas réussi, erreur : " + error);
+      console.error("Le fetch n'a pas réussi, erreur ", error);
+      setErreur("erreur de connection");
     }
   };
 
@@ -38,6 +45,9 @@ const FormLogin = () => {
   };
   const handlePassword = (e) => {
     setPassword(e.target.value);
+  };
+  const HandleRememberMe = (e) => {
+    setRememberMe(e.target.checked);
   };
 
   return (
@@ -71,12 +81,20 @@ const FormLogin = () => {
             />
           </div>
           <div className="input-remember">
-            <input type="checkbox" id="remember-me" />
+            <input
+              type="checkbox"
+              id="remember-me"
+              checked={rememberMe}
+              onChange={HandleRememberMe}
+            />
+            {console.log(rememberMe)}
+
             <label htmlFor="remember-me">Remember me</label>
           </div>
           <ButtonFormEdit text={"Sign-in"} />
         </form>
       </section>
+      {erreur && <p className="errorMessage">{erreur}</p>}
     </main>
   );
 };
