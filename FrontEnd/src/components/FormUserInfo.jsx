@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 const FormUserInfo = () => {
   const userName = useSelector((state) => state.Login.userName);
-  console.log(userName);
+
   return (
     <section className="sign-in-content">
       <div className="form-user">

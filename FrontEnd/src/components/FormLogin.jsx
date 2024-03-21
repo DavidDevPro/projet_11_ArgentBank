@@ -4,7 +4,7 @@ import ButtonFormEdit from "./ButtonFormEdit";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { token } from "../redux/slices";
+import { userToken, userInfos } from "../redux/slices";
 
 const FormLogin = () => {
   const [email, setEmail] = useState("");
@@ -13,32 +13,52 @@ const FormLogin = () => {
   const [erreur, setErreur] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const storeToken = useSelector((state) => state.Login.token);
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const response = await fetch("http://localhost:3001/api/v1/user/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
-
-    if (response.ok) {
-      const result = await response.json();
-      dispatch(token(result.body.token));
+    const loginResponse = await fetch(
+      "http://localhost:3001/api/v1/user/login",
+      {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      }
+    );
+    if (loginResponse) {
+      // vérification et récupération de la data en json
+      // récupération du status, du message de l'api et du token
+      const loginData = await loginResponse.json();
+      console.log(loginData.message + ", status " + loginData.status);
+      // récuperation l'objet du dispatch et alimentation du store de la valeur du token
+      const dispatchToken = dispatch(userToken(loginData.body.token));
+      // déclaration d'une variable token
+      const token = dispatchToken.payload;
+      console.log(token);
 
       if (rememberMe) {
-        localStorage.setItem("token", storeToken);
+        localStorage.setItem("token", token);
       }
-      navigate("/user");
 
-      console.log("Connexion réussie statut " + response.status);
-    } else {
-      console.error("Échec de la requête, erreur status " + response.status);
-      setErreur("Erreur de connexion");
+      const profileResponse = await fetch(
+        "http://localhost:3001/api/v1/user/profile",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (profileResponse) {
+        const profileData = await profileResponse.json();
+        console.log(profileData);
+        dispatch(userInfos(profileData.body));
+      } else {
+        console.error("la connection n'a pas réussie");
+      }
     }
   };
 
