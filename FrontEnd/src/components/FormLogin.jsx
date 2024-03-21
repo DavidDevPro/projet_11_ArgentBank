@@ -32,12 +32,12 @@ const FormLogin = () => {
       // vérification et récupération de la data en json
       // récupération du status, du message de l'api et du token
       const loginData = await loginResponse.json();
-      console.log(loginData.message + ", status " + loginData.status);
+      // console.log(loginData.message + ", status " + loginData.status);
       // récuperation l'objet du dispatch et alimentation du store de la valeur du token
       const dispatchToken = dispatch(userToken(loginData.body.token));
       // déclaration d'une variable token
       const token = dispatchToken.payload;
-      console.log(token);
+      // console.log(token);
 
       if (rememberMe) {
         localStorage.setItem("token", token);
@@ -54,11 +54,12 @@ const FormLogin = () => {
       );
       if (profileResponse) {
         const profileData = await profileResponse.json();
-        console.log(profileData);
+        // console.log(profileData);
         dispatch(userInfos(profileData.body));
       } else {
         console.error("la connection n'a pas réussie");
       }
+      navigate("/user");
     }
   };
 

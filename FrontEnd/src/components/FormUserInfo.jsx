@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import ButtonFormEdit from "./ButtonFormEdit";
 import { useSelector } from "react-redux";
 
 const FormUserInfo = () => {
-  const userName = useSelector((state) => state.Login.userName);
+  const userInfos = useSelector((state) => state.Login.userInfos);
+  const [changeUser, setChangeUser] = useState(userInfos.userName);
+
+  const handleChange = (e) => {
+    setChangeUser(e.target.value);
+  };
 
   return (
     <section className="sign-in-content">
@@ -12,15 +17,31 @@ const FormUserInfo = () => {
         <form className="form-user-infos " action="">
           <div className="input-wrapper">
             <label htmlFor="username">User Name:</label>
-            <input type="text" id="username" placeholder="User Name..." />
+            <input
+              type="text"
+              id="username"
+              placeholder="User Name..."
+              value={changeUser}
+              onChange={handleChange}
+            />
           </div>
           <div className="input-wrapper">
             <label htmlFor="firstname">First Name:</label>
-            <input type="text" id="firstname" placeholder="First Name..." />
+            <input
+              type="text"
+              id="firstname"
+              value={userInfos.firstName}
+              disabled
+            />
           </div>
           <div className="input-wrapper">
             <label htmlFor="lastname">Last Name:</label>
-            <input type="text" id="lastname" placeholder="Last Name..." />
+            <input
+              type="text"
+              id="lastname"
+              value={userInfos.lastName}
+              disabled
+            />
           </div>
           <ButtonFormEdit text={"Save"} />
           <ButtonFormEdit text={"Cancel"} />
