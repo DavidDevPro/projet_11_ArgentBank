@@ -1,17 +1,17 @@
 import Navigation from "../components/Navigation";
-import UserWelcome from "../components/UserWelcome";
+import UserFormName from "../components/UserFormName";
 import UserAccountInfos from "../components/userAccountInfos";
 
-const User = () => {
+const UserEditName = () => {
   return (
     <>
       <Navigation />
       <main className="main bg-dark">
-        <UserWelcome />
+        <UserFormName />
         <UserAccountInfos />
       </main>
     </>
   );
 };
 
-export default User;
+export default UserEditName;

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ButtonFormEdit from "./ButtonFormEdit";
 import { useSelector } from "react-redux";
 
-const FormUserInfo = () => {
+const UserFormName = () => {
   const userInfos = useSelector((state) => state.Login.userInfos);
   const [changeUser, setChangeUser] = useState(userInfos.userName);
 
@@ -51,4 +51,4 @@ const FormUserInfo = () => {
   );
 };
 
-export default FormUserInfo;
+export default UserFormName;

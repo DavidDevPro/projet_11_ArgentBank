@@ -3,10 +3,10 @@ import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import ButtonFormEdit from "./ButtonFormEdit";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { userToken, userInfos } from "../redux/slices";
 
-const FormLogin = () => {
+const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -121,4 +121,4 @@ const FormLogin = () => {
   );
 };
 
-export default FormLogin;
+export default LoginForm;

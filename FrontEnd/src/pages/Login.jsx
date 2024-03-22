@@ -1,11 +1,11 @@
-import FormLogin from "../components/FormLogin";
 import Navigation from "../components/Navigation";
+import LoginForm from "../components/LoginForm";
 
 const Login = () => {
   return (
     <>
       <Navigation />
-      <FormLogin />
+      <LoginForm />
     </>
   );
 };
