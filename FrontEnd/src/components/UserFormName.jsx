@@ -1,13 +1,48 @@
 import React, { useState } from "react";
 import ButtonFormEdit from "./ButtonFormEdit";
-import { useSelector } from "react-redux";
+
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { userInfos } from "../redux/slices";
 
 const UserFormName = () => {
-  const userInfos = useSelector((state) => state.Login.userInfos);
-  const [changeUser, setChangeUser] = useState(userInfos.userName);
+  const token = useSelector((state) => state.Login.token);
+  // console.log(token);
+  const storeUserInfos = useSelector((state) => state.Login.userInfos);
+  // console.log(userInfos);
+  const [changeUser, setChangeUser] = useState(storeUserInfos.userName);
+  // console.log(changeUser);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleSave = async (e) => {
+    e.preventDefault();
+
+    const editResponse = await fetch(
+      "http://localhost:3001/api/v1/user/profile",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ userName: changeUser }),
+      }
+    );
+    if (editResponse.ok) {
+      const editResult = await editResponse.json();
+      dispatch(userInfos({ ...storeUserInfos, userName: changeUser }));
+    }
+  };
 
   const handleChange = (e) => {
     setChangeUser(e.target.value);
+  };
+  const handleCancel = (e) => {
+    e.preventDefault();
+    navigate("/user");
   };
 
   return (
@@ -30,7 +65,7 @@ const UserFormName = () => {
             <input
               type="text"
               id="firstname"
-              value={userInfos.firstName}
+              value={storeUserInfos.firstName}
               disabled
             />
           </div>
@@ -39,13 +74,13 @@ const UserFormName = () => {
             <input
               type="text"
               id="lastname"
-              value={userInfos.lastName}
+              value={storeUserInfos.lastName}
               disabled
             />
           </div>
-          <ButtonFormEdit text={"Save"} />
-          <ButtonFormEdit text={"Cancel"} />
+          <ButtonFormEdit text={"Save"} onClick={handleSave} type="submit" />
         </form>
+        <ButtonFormEdit text={"Cancel"} onClick={handleCancel} />
       </div>
     </section>
   );

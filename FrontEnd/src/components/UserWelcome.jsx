@@ -1,7 +1,14 @@
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const UserWelcome = () => {
   const messageWelcome = useSelector((state) => state.Login.userInfos);
+  const navigate = useNavigate();
+
+  const handleUserEdit = () => {
+    navigate("/user_edit");
+  };
+
   return (
     <div className="header">
       <h1>
@@ -9,7 +16,9 @@ const UserWelcome = () => {
         <br />
         {messageWelcome.firstName} {messageWelcome.lastName}
       </h1>
-      <button className="edit-button">Edit name</button>
+      <button className="edit-button" onClick={handleUserEdit}>
+        Edit name
+      </button>
     </div>
   );
 };

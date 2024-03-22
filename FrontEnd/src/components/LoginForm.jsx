@@ -58,6 +58,7 @@ const LoginForm = () => {
         dispatch(userInfos(profileData.body));
       } else {
         console.error("la connection n'a pas réussie");
+        setErreur("erreur d'identification");
       }
       navigate("/user");
     }

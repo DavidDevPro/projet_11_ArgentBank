@@ -22,6 +22,7 @@ const Navigation = () => {
       type: "Login/userInfos",
       payload: null,
     });
+    localStorage.removeItem("token", token);
     navigate("/");
   };
 
