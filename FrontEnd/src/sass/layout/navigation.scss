@@ -27,6 +27,15 @@
       text-decoration: underline;
     }
   }
+  .main-nav-logout {
+    display: flex;
+    margin-right: 0.5rem;
+    gap: 20px;
+
+    .icon-logout {
+      margin-right: 7px;
+    }
+  }
   // a placer correctement lors de la mise en place des composants react::after
 
   .main-nav a.router-link-exact-active {
