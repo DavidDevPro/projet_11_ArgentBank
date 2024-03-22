@@ -42,7 +42,12 @@ const Navigation = () => {
           loginStore.userInfos &&
           loginStore.userInfos.userName && (
             <div className="main-nav-logout">
-              <p>{loginStore.userInfos.userName}</p>
+              <div className="user-name">
+                <FontAwesomeIcon icon={faCircleUser} />
+                <p className="user-name-text">
+                  {loginStore.userInfos.userName}
+                </p>
+              </div>
               <p className="logout" onClick={handleLogout}>
                 <FontAwesomeIcon
                   className="icon-logout"
