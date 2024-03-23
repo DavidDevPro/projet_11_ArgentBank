@@ -2,6 +2,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import ButtonFormEdit from "./ButtonFormEdit";
 import { useState } from "react";
+
+// redux
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userToken, userInfos } from "../redux/slices";

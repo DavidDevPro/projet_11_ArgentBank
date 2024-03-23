@@ -1,6 +1,6 @@
 import Navigation from "../components/Navigation";
 import UserWelcome from "../components/UserWelcome";
-import UserAccountInfos from "../components/userAccountInfos";
+import UserAccountInfos from "../components/UserAccountInfos";
 
 const User = () => {
   return (
