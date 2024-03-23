@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 
-const ButtonFormEdit = ({ text, onClick }) => {
+const ButtonFormEdit = ({ text, onClick, className }) => {
   return (
     <div className="buttonEdit">
-      <button className="sign-in-button" onClick={onClick}>
+      <button className={className} onClick={onClick}>
         {text}
       </button>
     </div>
@@ -12,7 +12,8 @@ const ButtonFormEdit = ({ text, onClick }) => {
 
 ButtonFormEdit.propsType = {
   text: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
+  className: PropTypes.string,
 };
 
 export default ButtonFormEdit;

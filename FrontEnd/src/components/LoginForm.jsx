@@ -12,7 +12,7 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-  const [erreur, setErreur] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -31,15 +31,14 @@ const LoginForm = () => {
       }
     );
     if (loginResponse) {
-      // vérification et récupération de la data en json
       // récupération du status, du message de l'api et du token
       const loginData = await loginResponse.json();
-      // console.log(loginData.message + ", status " + loginData.status);
+      console.log(loginData.message + ", status " + loginData.status);
       // récuperation l'objet du dispatch et alimentation du store de la valeur du token
       const dispatchToken = dispatch(userToken(loginData.body.token));
       // déclaration d'une variable token
       const token = dispatchToken.payload;
-      // console.log(token);
+      console.log(token);
 
       if (rememberMe) {
         localStorage.setItem("token", token);
@@ -54,13 +53,16 @@ const LoginForm = () => {
           },
         }
       );
-      if (profileResponse) {
+      if (profileResponse.ok) {
         const profileData = await profileResponse.json();
-        // console.log(profileData);
+        console.log(profileData);
         dispatch(userInfos(profileData.body));
       } else {
-        console.error("la connection n'a pas réussie");
-        setErreur("erreur d'identification");
+        console.error("Erreur du fetch, erreur: " + profileData.status);
+        console.log(
+          "Données utilisateur non récupérées, store non mis à jour !!"
+        );
+        setError("erreur d'identification");
       }
       navigate("/user");
     }
@@ -116,10 +118,10 @@ const LoginForm = () => {
 
             <label htmlFor="remember-me">Remember me</label>
           </div>
-          <ButtonFormEdit text={"Sign-in"} />
+          <ButtonFormEdit text={"Sign-in"} className={"sign-in-button"} />
         </form>
       </section>
-      {erreur && <p className="errorMessage">{erreur}</p>}
+      {error && <p className="errorMessage">{error}</p>}
     </main>
   );
 };

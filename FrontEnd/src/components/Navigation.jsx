@@ -13,15 +13,20 @@ const Navigation = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  // Logique de déconnection de l'utilisateur
   const handleLogout = () => {
+    // payload de userToken mis à "null" dans le store
     dispatch({
       type: "Login/userToken",
       payload: null,
     });
+    // Payload de userInfos mis à nul dans le store
     dispatch({
       type: "Login/userInfos",
       payload: null,
     });
+    // on enléve la clé et la valeur du token dans le localStorage
+    // et on redirige vers la page d'accueil
     localStorage.removeItem("token", token);
     navigate("/");
   };

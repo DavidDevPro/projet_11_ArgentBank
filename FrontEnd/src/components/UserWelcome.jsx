@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import ButtonFormEdit from "./ButtonFormEdit";
 
 // redux
 import { useSelector } from "react-redux";
@@ -18,9 +19,11 @@ const UserWelcome = () => {
         <br />
         {messageWelcome.firstName} {messageWelcome.lastName}
       </h1>
-      <button className="edit-button" onClick={handleUserEdit}>
-        Edit name
-      </button>
+      <ButtonFormEdit
+        className={"edit-button"}
+        text={"Edit name"}
+        onClick={handleUserEdit}
+      />
     </div>
   );
 };

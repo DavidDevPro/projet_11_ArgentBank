@@ -83,9 +83,18 @@ const UserFormName = () => {
               disabled
             />
           </div>
-          <ButtonFormEdit text={"Save"} onClick={handleSave} type="submit" />
+          <ButtonFormEdit
+            text={"Save"}
+            onClick={handleSave}
+            className={"sign-in-button"}
+            type="submit"
+          />
         </form>
-        <ButtonFormEdit text={"Cancel"} onClick={handleCancel} />
+        <ButtonFormEdit
+          text={"Cancel"}
+          onClick={handleCancel}
+          className={"sign-in-button"}
+        />
       </div>
     </section>
   );
