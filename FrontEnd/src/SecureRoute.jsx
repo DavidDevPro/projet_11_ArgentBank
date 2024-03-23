@@ -1,5 +1,5 @@
-import React from "react";
 import { Navigate } from "react-router-dom";
+import { PropTypes } from "prop-types";
 
 // redux
 import { useSelector } from "react-redux";
@@ -13,4 +13,7 @@ const SecureRoute = ({ children }) => {
   return token ? children : <Navigate to="/login" />;
 };
 
+SecureRoute.propTypes = {
+  children: PropTypes.node,
+};
 export default SecureRoute;
