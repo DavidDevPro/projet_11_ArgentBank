@@ -12,7 +12,7 @@ const AcountItem = ({ title, amount, description }) => {
         </div>
         <div className="account-content-wrapper cta">
           <ButtonFormEdit
-            className={"transaction-button"}
+            className={"transaction-button button"}
             text={"View transactions"}
           />
         </div>

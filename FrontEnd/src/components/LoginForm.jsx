@@ -98,7 +98,10 @@ const LoginForm = () => {
 
             <label htmlFor="remember-me">Remember me</label>
           </div>
-          <ButtonFormEdit text={"Sign-in"} className={"sign-in-button"} />
+          <ButtonFormEdit
+            text={"Sign-in"}
+            className={"sign-in-button button"}
+          />
         </form>
       </section>
       {errorLogin && (

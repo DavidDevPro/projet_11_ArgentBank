@@ -20,7 +20,7 @@ const UserWelcome = () => {
         {messageWelcome.firstName} {messageWelcome.lastName}
       </h1>
       <ButtonFormEdit
-        className={"edit-button"}
+        className={"edit-button button"}
         text={"Edit name"}
         onClick={handleUserEdit}
       />

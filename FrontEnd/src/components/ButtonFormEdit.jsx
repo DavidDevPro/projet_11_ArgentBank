@@ -2,11 +2,9 @@ import PropTypes from "prop-types";
 
 const ButtonFormEdit = ({ text, onClick, className }) => {
   return (
-    <div className="buttonEdit">
-      <button className={className} onClick={onClick}>
-        {text}
-      </button>
-    </div>
+    <button className={className} onClick={onClick}>
+      {text}
+    </button>
   );
 };
 

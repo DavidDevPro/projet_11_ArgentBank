@@ -82,14 +82,14 @@ const UserFormName = () => {
             <ButtonFormEdit
               text={"Save"}
               onClick={handleSave}
-              className={"sign-in-button"}
+              className={"sign-in-button button"}
               type="submit"
             />
           </form>
           <ButtonFormEdit
             text={"Cancel"}
             onClick={handleCancel}
-            className={"sign-in-button"}
+            className={"sign-in-button button"}
           />
         </div>
       </section>

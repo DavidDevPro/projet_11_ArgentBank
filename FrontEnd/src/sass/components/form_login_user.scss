@@ -6,6 +6,8 @@
   margin-top: 3rem;
   padding: 2rem;
   border-radius: 15px;
+  border: 1px solid black;
+  box-shadow: rgb(73, 73, 73) 1px 1px 1px;
 
   .sign-in-icon {
     font-size: 1.1rem;
@@ -27,24 +29,16 @@
         font-size: 0.75em;
       }
     }
+    #username {
+      color: #00bc77;
+      font-weight: bold;
+    }
   }
   .input-remember {
     display: flex;
     & label {
       margin-left: 0.25rem;
     }
-  }
-  .sign-in-button {
-    display: block;
-    width: 100%;
-    padding: 8px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-top: 1rem;
-    border-color: #00bc77;
-    background-color: #00bc77;
-    color: #fff;
-    border-radius: 5px;
   }
 }
 .errorMessage {
@@ -58,6 +52,7 @@
   margin: 30px auto 0;
   border-radius: 10px;
   animation: error 1200ms ease;
+  box-shadow: rgba(135, 134, 134) 0px 1px 4px;
 
   @keyframes error {
     0% {
@@ -81,6 +76,7 @@
   margin: 30px auto 0;
   border-radius: 10px;
   animation: error 1200ms ease;
+  box-shadow: rgba(132, 132, 132) 0px 1px 4px;
 
   @keyframes error {
     0% {
