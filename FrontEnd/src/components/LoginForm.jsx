@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import ButtonFormEdit from "./ButtonFormEdit";
 import { useState } from "react";
+import { fetchUser } from "./fetch";
 
 // redux
 import { useNavigate } from "react-router-dom";
@@ -12,59 +13,48 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-  const [error, setError] = useState("");
+  const [errorLogin, setErrorLogin] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const loginResponse = await fetch(
-      "http://localhost:3001/api/v1/user/login",
-      {
-        method: "POST",
-        headers: {
-          accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      }
-    );
-    if (loginResponse) {
-      // récupération du status, du message de l'api et du token
-      const loginData = await loginResponse.json();
-      console.log(loginData.message + ", status " + loginData.status);
-      // récuperation l'objet du dispatch et alimentation du store de la valeur du token
-      const dispatchToken = dispatch(userToken(loginData.body.token));
-      // déclaration d'une variable token
-      const token = dispatchToken.payload;
-      console.log(token);
-
-      if (rememberMe) {
-        localStorage.setItem("token", token);
-      }
-
-      const profileResponse = await fetch(
-        "http://localhost:3001/api/v1/user/profile",
+    try {
+      const responseLogin = await fetch(
+        "http://localhost:3001/api/v1/user/login",
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${token}`,
+            accept: "application/json",
+            "Content-Type": "application/json",
           },
+          body: JSON.stringify({ email, password }),
         }
       );
-      if (profileResponse.ok) {
-        const profileData = await profileResponse.json();
-        console.log(profileData);
-        dispatch(userInfos(profileData.body));
+
+      if (responseLogin.status !== 200) {
+        setErrorLogin(true);
       } else {
-        console.error("Erreur du fetch, erreur: " + profileData.status);
-        console.log(
-          "Données utilisateur non récupérées, store non mis à jour !!"
-        );
-        setError("erreur d'identification");
+        const dataLogin = await responseLogin.json();
+        // récuperation du token
+        const token = dataLogin.body.token;
+        // envoi du token au store
+        dispatch(userToken(token));
+
+        if (rememberMe) {
+          localStorage.setItem("token", token);
+        }
+        // fetch pour la récuperation des infos user
+        const responseUser = await fetchUser(token);
+        // envoi des infos user au store
+        dispatch(userInfos(responseUser.body));
+
+        // redirection vers la page /user si connecté
+        navigate("/user");
       }
-      navigate("/user");
+    } catch (error) {
+      "Une erreur s'est produite lors de la connection", error;
     }
   };
 
@@ -121,7 +111,11 @@ const LoginForm = () => {
           <ButtonFormEdit text={"Sign-in"} className={"sign-in-button"} />
         </form>
       </section>
-      {error && <p className="errorMessage">{error}</p>}
+      {errorLogin && (
+        <p className="errorMessage">
+          "Veuillez vérifier vos identifiants et réessayer." !
+        </p>
+      )}
     </main>
   );
 };
