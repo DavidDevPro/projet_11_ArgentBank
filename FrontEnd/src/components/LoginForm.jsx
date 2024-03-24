@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import ButtonFormEdit from "./ButtonFormEdit";
 import { useState } from "react";
-import { fetchUser } from "./fetch";
+import { fetchUser, fetchLogin } from "./fetch";
 
 // redux
 import { useNavigate } from "react-router-dom";
@@ -21,24 +21,10 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      const responseLogin = await fetch(
-        "http://localhost:3001/api/v1/user/login",
-        {
-          method: "POST",
-          headers: {
-            accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        }
-      );
+      const responseLogin = await fetchLogin(email, password);
 
-      if (responseLogin.status !== 200) {
-        setErrorLogin(true);
-      } else {
-        const dataLogin = await responseLogin.json();
-        // récuperation du token
-        const token = dataLogin.body.token;
+      if (responseLogin.status === 200) {
+        const token = responseLogin.body.token;
         // envoi du token au store
         dispatch(userToken(token));
 
@@ -54,7 +40,11 @@ const LoginForm = () => {
         navigate("/user");
       }
     } catch (error) {
-      "Une erreur s'est produite lors de la connection", error;
+      console.error(
+        "Une erreur s'est produite lors de la demande de connexion :",
+        error
+      );
+      setErrorLogin(true);
     }
   };
 
@@ -113,7 +103,7 @@ const LoginForm = () => {
       </section>
       {errorLogin && (
         <p className="errorMessage">
-          "Veuillez vérifier vos identifiants et réessayer." !
+          Veuillez vérifier vos identifiants et réessayer !
         </p>
       )}
     </main>

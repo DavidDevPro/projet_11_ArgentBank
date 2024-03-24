@@ -21,7 +21,7 @@ const UserFormName = () => {
     e.preventDefault();
 
     // fetch method PUT pour la gestion du changement du user name
-    const editResponse = await fetch(
+    const responseEdit = await fetch(
       "http://localhost:3001/api/v1/user/profile",
       {
         method: "PUT",
@@ -32,7 +32,7 @@ const UserFormName = () => {
         body: JSON.stringify({ userName: changeUser }),
       }
     );
-    if (editResponse.ok) {
+    if (responseEdit.ok) {
       const editResult = await editResponse.json();
       console.log("le fetch a réussi statut " + editResult.status);
       // le dispatch va faire boucler le storeUserInfos jusqu'a trouver userName
