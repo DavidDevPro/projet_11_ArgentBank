@@ -10,12 +10,12 @@ const User = () => {
       <main className="main bg-dark">
         <UserWelcome />
         <h2 className="sr-only">Accounts</h2>
-        {acountItems.map((account, index) => (
+        {acountItems.map((item, index) => (
           <AcountItem
             key={index}
-            title={account.title}
-            amount={account.amount}
-            description={account.description}
+            title={item.title}
+            amount={item.amount}
+            description={item.description}
           />
         ))}
       </main>

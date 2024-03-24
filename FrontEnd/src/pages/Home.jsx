@@ -1,6 +1,7 @@
+import Navigation from "../components/Navigation";
 import HomeBanner from "../components/HomeBanner";
 import HomeFeatures from "../components/HomeFeatures";
-import Navigation from "../components/Navigation";
+import features from "../features.json";
 
 const Home = () => {
   return (
@@ -8,7 +9,17 @@ const Home = () => {
       <Navigation />
       <main>
         <HomeBanner />
-        <HomeFeatures />
+        <section className="features">
+          <h2 className="sr-only">Features</h2>
+          {features.map((feature, index) => (
+            <HomeFeatures
+              key={index}
+              title={feature.title}
+              icon={feature.icon}
+              description={feature.description}
+            />
+          ))}
+        </section>
       </main>
     </>
   );
