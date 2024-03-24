@@ -24,11 +24,16 @@ export async function fetchLogin(email, password) {
     throw error;
   }
 }
+//
+//
+//
+//
+//
 
 export async function fetchUser(token) {
   try {
     const responseUser = await fetch(
-      "http://localhost:3001/api/v1/user/profil",
+      "http://localhost:3001/api/v1/user/profile",
       {
         method: "POST",
         headers: {
@@ -50,5 +55,32 @@ export async function fetchUser(token) {
       "erreur du fetch, les infos user ne sont pas récupérés",
       error
     );
+  }
+}
+//
+//
+//
+//
+//
+export async function fetchEdit(token, userName) {
+  try {
+    const responseEdit = await fetch(
+      "http://localhost:3001/api/v1/user/profile",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ userName }),
+      }
+    );
+    if (responseEdit.ok) {
+      return responseEdit;
+    } else {
+      throw new Error("le edit n'a pas réussi, erreur: " + responseEdit.status);
+    }
+  } catch (error) {
+    console.error("erreur du fetch, le userName n'a pas été édité", error);
   }
 }

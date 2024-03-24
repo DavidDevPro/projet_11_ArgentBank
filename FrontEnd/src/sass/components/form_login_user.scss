@@ -70,3 +70,26 @@
     }
   }
 }
+.successMessage {
+  text-align: center;
+  font-size: 1.15em;
+  font-weight: 600;
+  color: white;
+  background-color: #00bc77;
+  width: 280px;
+  padding: 15px 10px;
+  margin: 30px auto 0;
+  border-radius: 10px;
+  animation: error 1200ms ease;
+
+  @keyframes error {
+    0% {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+  }
+}
