@@ -28,12 +28,14 @@ const UserFormName = () => {
       if (responseEdit.ok) {
         dispatch(userInfos({ ...storeUserInfos, userName: changeUser }));
         setUserSuccess(true);
+        setTimeout(() => setUserSuccess(false), 4500);
       } else {
         console.log("Le fetch a échoué avec le statut " + responseEdit.status);
       }
     } catch (error) {
       console.error("Une erreur s'est produite lors de la sauvegarde :", error);
       setUserError(true);
+      setTimeout(() => setUserError(false), 4500);
     }
   };
 

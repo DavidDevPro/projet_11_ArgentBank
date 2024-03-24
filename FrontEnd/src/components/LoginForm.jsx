@@ -45,6 +45,7 @@ const LoginForm = () => {
         error
       );
       setErrorLogin(true);
+      setTimeout(() => setErrorLogin(false), 4500);
     }
   };
 
