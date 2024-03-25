@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ButtonFormEdit from "./ButtonFormEdit";
-import { fetchEdit } from "./fetch";
+import { fetchEdit } from "../core/fetch";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";

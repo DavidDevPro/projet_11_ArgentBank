@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import ButtonFormEdit from "./ButtonFormEdit";
 import { useState } from "react";
-import { fetchUser, fetchLogin } from "./fetch";
+import { fetchUser, fetchLogin } from "../core/fetch";
 
 // redux
 import { useNavigate } from "react-router-dom";

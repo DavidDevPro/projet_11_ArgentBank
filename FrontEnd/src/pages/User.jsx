@@ -1,7 +1,7 @@
 import AcountItem from "../components/AcountItem";
 import Navigation from "../components/Navigation";
 import UserWelcome from "../components/UserWelcome";
-import acountItems from "../acount.json";
+import acountItems from "../data/acount.json";
 
 const User = () => {
   return (

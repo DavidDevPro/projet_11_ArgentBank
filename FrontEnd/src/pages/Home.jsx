@@ -1,7 +1,7 @@
 import Navigation from "../components/Navigation";
 import HomeBanner from "../components/HomeBanner";
 import HomeFeatures from "../components/HomeFeatures";
-import features from "../features.json";
+import features from "../data/features.json";
 
 const Home = () => {
   return (
