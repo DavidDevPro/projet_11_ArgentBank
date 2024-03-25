@@ -101,38 +101,92 @@ paths:
           description: Invalid Fields
         "500":
           description: Internal Server Error
-
   /user/transactions:
     get:
       security:
         - Bearer: []
       tags:
-        - User Transactions
-      summary: Get User Transactions
-      description: API for retrieving user transactions
+        - Transactions Module
+      summary: User get data transactions
+      description: API for fetching data user transactions
       produces:
         - application/json
       responses:
         "200":
-          description: User transactions retrieved successfully
+          description: getting transaction data list Successfully
           schema:
-            type: array
-            items:
-              type: object
-              properties:
-                date:
-                  type: string
-                description:
-                  type: string
-                amount:
-                  type: number
-                balance:
-                  type: number
-        "401":
-          description: Unauthorized - Missing or invalid token
+            $ref: "#/definitions/TransactionResponse"
+        "400":
+          description: Invalid Fields
         "500":
           description: Internal Server Error
+  /user/transaction/edit/{id}:
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: User update categories
+      description: API for update categories for a user transaction by id
+      parameters:
+        - in: header
+          name: Autorization
+          description: Bearer token for authentification
+          required: true
+          type: string
+        - in: path
+          name: id
+          description: Transaction id
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Update transaction
+          required: true
+          schema:
+            $ref: "#/definitions/CategoriesTransactions"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Transaction categorie update retrieved successfully
+          schema:
+            $ref: "#/definitions/UpdateCategoriesResponse"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+  /user/transaction/edit/{id}/note:
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: User delete note
+      description: API for delete a user transaction note by id
+      parameters:
+        - in: header
+          name: Authorization
+          description: Bearer token for authentication
+          required: true
+          type: string
+        - in: path
+          name: id
+          description: Transaction id
+          required: true
+          type: string
 
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: User transaction note delete retrieved successully
+          schema:
+            $ref: "#/definitions/UpdateResponse"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -188,3 +242,50 @@ definitions:
     properties:
       userName:
         type: string
+  TransactionResponse:
+    properties:
+      Date:
+        type: string
+        example: "02/02/2024"
+      Description:
+        type: string
+        example: "Golden Sun Bakery"
+      Amount:
+        type: string
+        example: "$8.00"
+      Balance:
+        type: string
+        example: "$298"
+      Transaction type:
+        type: string
+        example: "Electronic"
+      Category:
+        type: string
+        example: "Food"
+      Note:
+        type: string
+        example: "lorem ipsum"
+  CategoriesTransactions:
+    properties:
+      Autorization:
+        type: string
+        example: "gjizejprg9456rtz4h896t4bg865f4sd564rety89489trsdfgvmklpkporeztkspogkoppkoptrye"
+      Id:
+        type: string
+        example: "12"
+  UpdateCategoriesResponse:
+    properties:
+      Category:
+        type: string
+        example: "Food"
+      Note:
+        type: string
+        example: "Transaction update success"
+  UpdateResponse:
+    properties:
+      Id:
+        type: string
+        example: "12"
+      note:
+        type: string
+        example: "note deleted"
