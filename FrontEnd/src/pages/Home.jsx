@@ -17,6 +17,7 @@ const Home = () => {
               title={feature.title}
               icon={feature.icon}
               description={feature.description}
+              alt={feature.alt}
             />
           ))}
         </section>

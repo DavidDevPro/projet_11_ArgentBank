@@ -1,11 +1,11 @@
 import { PropTypes } from "prop-types";
 
-const HomeFeatures = ({ title, icon, description }) => {
+const HomeFeatures = ({ title, icon, description, alt }) => {
   return (
     <section className="features">
       <h2 className="sr-only">Features</h2>
       <div className="feature-item">
-        <img className="feature-icon" src={icon} alt="Chat icon" />
+        <img className="feature-icon" src={icon} alt={alt} />
         <h3 className="feature-item-title">{title}</h3>
         <p>{description}</p>
       </div>

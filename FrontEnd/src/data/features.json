@@ -2,16 +2,19 @@
   {
     "title": "You are our #1 priority",
     "description": "Need to talk to a representative? You can get in touch through our 24/7 chat or through a phone call in less than 5 minutes.",
-    "icon": "./images/icon-chat.webp"
+    "icon": "./images/icon-chat.webp",
+    "alt": "icon chat"
   },
   {
     "title": "More savings means higher rates",
     "description": "The more you save with us, the higher your interest rate will be!",
-    "icon": "./images/icon-money.webp"
+    "icon": "./images/icon-money.webp",
+    "alt": "icon money"
   },
   {
     "title": "Security you can trust",
     "description": "We use top of the line encryption to make sure your data and money is always safe.",
-    "icon": "./images/icon-security.webp"
+    "icon": "./images/icon-security.webp",
+    "alt": "icon security"
   }
 ]
