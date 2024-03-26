@@ -12,7 +12,7 @@ const User = () => {
         <h2 className="sr-only">Accounts</h2>
         {acountItems.map((item, index) => (
           <AcountItem
-            key={index}
+            key={"item" + index}
             title={item.title}
             amount={item.amount}
             description={item.description}

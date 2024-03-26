@@ -5,6 +5,7 @@ import User from "./pages/User";
 import UserEditName from "./pages/UserEditName";
 import Footer from "./components/Footer";
 import SecureRoute from "./SecureRoute";
+import { useDispatch } from "react-redux";
 
 const App = () => {
   const basename =

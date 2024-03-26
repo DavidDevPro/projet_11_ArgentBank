@@ -13,7 +13,7 @@ const Home = () => {
           <h2 className="sr-only">Features</h2>
           {features.map((feature, index) => (
             <HomeFeatures
-              key={index}
+              key={"feature" + index}
               title={feature.title}
               icon={feature.icon}
               description={feature.description}
