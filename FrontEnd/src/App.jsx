@@ -7,9 +7,11 @@ import Footer from "./components/Footer";
 import SecureRoute from "./SecureRoute";
 
 const App = () => {
+  const basename =
+    import.meta.env.MODE === "production" ? "/projet_11_ArgentBank" : "";
   return (
     <>
-      <Router>
+      <Router basename={basename}>
         <Routes>
           <Route index path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
