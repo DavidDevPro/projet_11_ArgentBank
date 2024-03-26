@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import logo from "../assets/images/argentBankLogo.webp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
@@ -33,26 +33,26 @@ const Navigation = () => {
 
   return (
     <nav className="main-nav">
-      <NavLink to="/" className="main-nav-logo">
+      <Link to="/" className="main-nav-logo">
         <img
           className="main-nav-logo-image"
           src={logo}
           alt="Argent Bank logo"
         />
         <h1 className="sr-only">Argent Bank</h1>
-      </NavLink>
+      </Link>
       <div>
         {token ? (
           loginStore &&
           loginStore.userInfos &&
           loginStore.userInfos.userName && (
             <div className="main-nav-logout">
-              <div className="user-name">
+              <Link to="/user" className="user-name">
                 <FontAwesomeIcon icon={faCircleUser} />
                 <p className="user-name-text">
                   {loginStore.userInfos.userName}
                 </p>
-              </div>
+              </Link>
               <p className="logout" onClick={handleLogout}>
                 <FontAwesomeIcon
                   className="icon-logout"
@@ -63,10 +63,10 @@ const Navigation = () => {
             </div>
           )
         ) : (
-          <NavLink to="/login" className="main-nav-item">
+          <Link to="/login" className="main-nav-item">
             <FontAwesomeIcon icon={faCircleUser} />
             Sign In
-          </NavLink>
+          </Link>
         )}
       </div>
     </nav>
